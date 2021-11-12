@@ -68,9 +68,13 @@ The device object is then deleted with a cal to IoDeleteDevice and the function 
 # DISPATCH ROUTINES
 
 # Default Dispatch Routine (sub_401400)
-This is a small function. It moves the IRP to the edx register and gets the next IRP in the device object stacks. This is illustrated in the asm as  
->inc byte ptr [edx+23h]
-
+This is a small function. It moves the IRP to the edx register and modifies the system's IO_STACK_LOCATION array pointer, so that when the current driver calls the next-lower driver, that driver receives the same IO_STACK_LOCATION structure that the current driver received.
 It later makes a call to IofCall driver with global variable dword_4038A8 as a device_object parameter. It then makes an exit.
 
 # IRP_MJ_WRITE (sub_401360)
+It initializes an IO_STACK_LOCATION object and moves it to the esi register.The next stack location in the device stack is set to our current stack location. It then initializes a callback CompletionRoutine. The CompletionRoutine Function has parameters; the device object variable, a pointer to a function (sub_401230) and 2 other variables. Can't figure out what they are now. 
+
+Later on, a call to IofCallDriver passing our DEVICE_OBJECT global variable dword_4038A8 and the pointer to the IRP. The function then exits.
+
+# Function sub_401280
+This function was called in our DriverEntry function and I thought it might be best I check it out incase it does anything interesting. 
