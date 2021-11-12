@@ -1,0 +1,50 @@
+.text:004013A0 ; =============== S U B R O U T I N E =======================================
+.text:004013A0
+.text:004013A0 ; Attributes: bp-based frame
+.text:004013A0
+.text:004013A0 sub_4013A0      proc near               ; DATA XREF: sub_401250+1C↑o
+.text:004013A0                                         ; .rdata:00402068↓o
+.text:004013A0
+.text:004013A0 var_28          = byte ptr -28h
+.text:004013A0 arg_0           = dword ptr  8
+.text:004013A0
+.text:004013A0                 push    ebp
+.text:004013A1                 mov     ebp, esp
+.text:004013A3                 sub     esp, 28h
+.text:004013A6                 push    esi
+.text:004013A7                 push    dword_4038A8
+.text:004013AD                 call    ds:IoDetachDevice
+.text:004013B3                 lea     eax, [ebp+var_28]
+.text:004013B6                 push    eax
+.text:004013B7                 call    ds:KeInitializeTimer
+.text:004013BD                 xor     esi, esi
+.text:004013BF                 jmp     short loc_4013E0
+.text:004013C1 ; ---------------------------------------------------------------------------
+.text:004013C1
+.text:004013C1 loc_4013C1:                             ; CODE XREF: sub_4013A0+46↓j
+.text:004013C1                 push    esi
+.text:004013C2                 push    esi
+.text:004013C3                 push    0F4240h
+.text:004013C8                 lea     eax, [ebp+var_28]
+.text:004013CB                 push    eax
+.text:004013CC                 call    ds:KeSetTimer
+.text:004013D2                 push    esi
+.text:004013D3                 push    esi
+.text:004013D4                 push    esi
+.text:004013D5                 push    esi
+.text:004013D6                 lea     eax, [ebp+var_28]
+.text:004013D9                 push    eax
+.text:004013DA                 call    ds:KeWaitForSingleObject
+.text:004013E0
+.text:004013E0 loc_4013E0:                             ; CODE XREF: sub_4013A0+1F↑j
+.text:004013E0                 cmp     dword_403048, esi
+.text:004013E6                 ja      short loc_4013C1
+.text:004013E8                 mov     eax, [ebp+arg_0]
+.text:004013EB                 push    dword ptr [eax+4]
+.text:004013EE                 call    ds:IoDeleteDevice
+.text:004013F4                 pop     esi
+.text:004013F5                 leave
+.text:004013F6                 retn    4
+.text:004013F6 sub_4013A0      endp
+.text:004013F6
+.text:004013F6 ; ---------------------------------------------------------------------------
