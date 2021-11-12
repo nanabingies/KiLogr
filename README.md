@@ -68,3 +68,9 @@ The device object is then deleted with a cal to IoDeleteDevice and the function 
 # DISPATCH ROUTINES
 
 # Default Dispatch Routine (sub_401400)
+This is a small function. It moves the IRP to the edx register and gets the next IRP in the device object stacks. This is illustrated in the asm as  
+>inc byte ptr [edx+23h]
+
+It later makes a call to IofCall driver with global variable dword_4038A8 as a device_object parameter. It then makes an exit.
+
+# IRP_MJ_WRITE (sub_401360)
