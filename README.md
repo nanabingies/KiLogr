@@ -72,6 +72,7 @@ This is a small function. It moves the IRP to the edx register and modifies the 
 It later makes a call to IofCall driver with global variable dword_4038A8 as a device_object parameter. It then makes an exit.
 
 # IRP_MJ_WRITE (sub_401360)
+[sub_401360](https://github.com/nanabingies/KiLogr/blob/main/Irp_Mj_Write.asm)
 It initializes an IO_STACK_LOCATION object and moves it to the esi register.The next stack location in the device stack is set to our current stack location. It then initializes a callback CompletionRoutine. The CompletionRoutine Function has parameters; the device object variable, a pointer to a function (sub_401230) and 2 other variables. Can't figure out what they are now. 
 
 Later on, a call to IofCallDriver passing our DEVICE_OBJECT global variable dword_4038A8 and the pointer to the IRP. The function then exits.
