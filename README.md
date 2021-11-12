@@ -86,3 +86,6 @@ Later on, a call to IofCallDriver passing our DEVICE_OBJECT global variable dwor
 
 # Function sub_401280
 This function was called in our DriverEntry function and I thought it might be best I check it out incase it does anything interesting. 
+
+The function starts by setting [ebp+var_84] to the string "\\Device\\KeyboardClass0" and calls IoCreateDevice. The salient part is that NULL was passed as the deviceName parameter to the IoCreateDevice function. This suggests the device object being created has no name associated with it. 
+[ebp+var_84] is then converted to a unicode string and passed to IoAttachDevice function call. Our device object global variable is the device object being attached. 
